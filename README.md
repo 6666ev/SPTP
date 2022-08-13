@@ -1,2 +1,1 @@
-# SCJudge
-Similar Case Penalty Revision
+# SPTP
