@@ -13,21 +13,15 @@ import jieba
 
 def laic_data():
     testset = pd.read_csv(
-        "/mnt/data/wuyiquan/lyf/code/ConfusingChargeLJP/data/laic2021.csv")
+        "data/laic2021.csv")
     fact = testset["justice"].tolist()
     opinion = testset["opinion"].tolist()
-    # 字向量
-    # fact = [list(line) for line in fact]
-    # opinion = [list(line) for line in opinion]
-    # fact = [jieba.lcut(line.replace("\n","")) for line in fact]
-    # opinion = [jieba.lcut(line.replace("\n","")) for line in opinion]
 
     data = []
     for line in tqdm(fact):
         data.append(jieba.lcut(line.replace("\n", "")))
     for line in tqdm(opinion):
         data.append(jieba.lcut(line.replace("\n", "")))
-    # fact.extend(opinion)
     return data
 
 
@@ -36,8 +30,6 @@ def cail_data(file):
     with open(file) as f:
         for line in tqdm(f.readlines()):
             json_obj = json.loads(line)
-            # 字向量
-            # fact.append(list(json_obj["fact"]))
             line = json_obj["fact"]
             line = line.replace("\n", "")
             fact.append(jieba.lcut(line))
@@ -47,22 +39,12 @@ def cail_data(file):
 
 def save_cut_corpus():
     fact = laic_data()
-    train_file = "/mnt/data/wuyiquan/lyf/code/ConfusingChargeLJP/data/cail/final_all_data/first_stage/train.json"
-    test_file = "/mnt/data/wuyiquan/lyf/code/ConfusingChargeLJP/data/cail/final_all_data/first_stage/test.json"
+    train_file = "data/cail/final_all_data/first_stage/train.json"
+    test_file = "data/cail/final_all_data/first_stage/test.json"
 
     with open("word_cut_corpus_laic.txt","w") as f:
         for line in fact:
             f.write(" ".join(line)+"\n")
-
-    # fact_2 = cail_data(train_file)
-    # with open("word_cut_corpus_cail_train.txt", "w") as f:
-    #     for line in fact_2:
-    #         f.write(" ".join(line)+"\n")
-
-    # fact_3 = cail_data(test_file)
-    # with open("word_cut_corpus_cail_test.txt", "w") as f:
-    #     for line in fact_3:
-    #         f.write(" ".join(line)+"\n")
 
 
 def get_cut_corpus():

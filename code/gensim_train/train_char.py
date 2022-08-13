@@ -13,7 +13,7 @@ import pickle
 
 def laic_data():
     testset = pd.read_csv(
-        "/mnt/data/wuyiquan/lyf/code/ConfusingChargeLJP/data/laic2021.csv")
+        "data/laic2021.csv")
     fact = testset["justice"].tolist()
     opinion = testset["opinion"].tolist()
 #     word_set = set(c for line in fact for c in line)
@@ -35,8 +35,8 @@ def cail_data(file):
 
 def train_word2vec():
     fact = laic_data()
-    train_file = "/mnt/data/wuyiquan/lyf/code/ConfusingChargeLJP/data/cail/final_all_data/first_stage/train.json"
-    test_file = "/mnt/data/wuyiquan/lyf/code/ConfusingChargeLJP/data/cail/final_all_data/first_stage/test.json"
+    train_file = "data/cail/final_all_data/first_stage/train.json"
+    test_file = "data/cail/final_all_data/first_stage/test.json"
 
     fact_2 = cail_data(train_file)
     fact_3 = cail_data(test_file)
@@ -49,7 +49,6 @@ def train_word2vec():
     word_set = set(c for line in fact_tot for c in line)
     print("word set: ", len(word_set))
 
-    # sentences = [["Python", "深度学习", "机器学习","好难"], ["NLP", "深度学习", "机器学习"]]
     sentences = fact_tot
 
     start_time = time.time()
@@ -61,7 +60,6 @@ def train_word2vec():
 
 def load_word2vec(file_path):
     model = Word2Vec.load("code/gensim_train/word2vec.model")
-    a = 1
 
 
 load_word2vec("word2vec.model")
